@@ -1,0 +1,157 @@
+\documentclass[14pt, letterpaper]{book}
+\usepackage[utf8]{inputenc}
+
+\usepackage{ascii}
+
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+\title{First document}
+\author{Sunil \thanks{funded by noone}}
+\date{\today}
+
+
+\begin{document}
+First document. This is a simple example,with no extra parameters or packages included.
+\maketitle
+\tableofcontents
+We have now added a title ,author,date and table of contents to our first \LaTeX{} document! And it is looking amazing to me, like really amazing.To manually add entries, for example when you want an unnumbered section, use the command \textbackslash addcontentsline as shown in the example. 
+
+% This is an example to illustrate bold italic emphasis and underline
+Some of the \textbf{greatest} discoveries in \underline{science} were made by \textbf{\textit{accident}}.
+Some of the greatest \emph{discoveries} in science were made by accident.\\ %or \newline
+\textit{Some of the greatest \emph{discoveries} in science vere made by accident}
+\textbf{Some of the greatest \emph{discoveries} in science were made by accident}
+
+%This is an example to illustrate figures
+\begin{figure}[h]
+  \centering
+  The universe is immense and it seems to be homogeneous,in a large scale ,everywhere we look at.
+  \includegraphics{universe}
+  There is a picture of galaxy above.
+  \caption{Aerial view}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.25\textwidth]{mesh}
+  \caption{a nice plot}
+  \label{fig:mesh1}
+\end{figure}
+
+As you can see here I am refering to figure \ref{fig:mesh1} which is on page nuber \pageref{fig:mesh1}
+
+%This is an example to illustrate unordered list
+\begin{itemize}
+\item The individual entries are indicated with a black dot ,a so called bullet
+\item The text in the entries may be of any length
+\end{itemize}
+
+%this is an exampel of a ordered list
+\begin{enumerate}
+\item This is the first entry
+\item The list numbers increases with each entry as we add
+\end{enumerate}
+
+%\begin{abstract}
+%  This is a simple paragraph at the beginning of the document. A brief introduction about the main subject.
+%\end{abstract}
+
+
+\chapter{First Chapter}
+ 
+\section{Introduction}
+ 
+This is the first section.
+ 
+Lorem  ipsum  dolor  sit  amet,  consectetuer  adipiscing  
+elit.   Etiam  lobortisfacilisis sem.  Nullam nec mi et 
+neque pharetra sollicitudin.  Praesent imperdietmi nec ante. 
+Donec ullamcorper, felis non sodales...
+ 
+\section{Second Section}
+Note that \textbackslash part and \textbackslash chapter are only available in report and book document classes.
+But then abstract will not work
+ 
+\subsection{First Subsection}
+The basic levels of depth are listed below:
+%&$#^_~\ these can be disabled as followed
+% I don't know how to disable | character
+\% disables empursent \\
+\# disables hash \\
+\^{} disables caret \\
+\_ disables underscore \\
+\~{} disables tilde \\
+\textbackslash used for backslash \\
+-1 	\textbackslash part\{sunil\} to create a part named sunil  \\
+0 	\textbackslash chapter\{chapter1\} to create a chapter named chapter1 \\
+1 	\textbackslash section\{section1\} to create a section named section 1 \\
+2 	\textbackslash subsection\{subsection1\} to create a section named subsection 1 \\
+3 	\textbackslash subsubsection\{son\} to create a subsubsection named son  \\
+4 	\textbackslash paragraph\{para\} to create a paragraph named para\\
+5 	\textbackslash subparagraph\{subpara\} to create a subparagraph named subpara \\
+
+\addcontentsline{toc}{First section}{Unnumbered Section}
+\section*{Unnumbered Section}
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  
+Etiam lobortis facilisissemd
+Note * is used to unnumber the section or paragraph
+
+\section{Numbered}
+Number has started again showing
+
+Now we will learn to create tables
+a \textbf{\&} is a breaking between cells
+a \textbf{ccc} line is representing number of columns
+You can use \textbf{r} and \textbf{l} for right and left assignment
+\begin{center}
+  \begin{tabular}{c c c}
+    cell1 & cell2 & cell3 \\
+    cell4 & cell5 & cell6 \\
+    cell7 & cell8 & cell9 \\
+  \end{tabular}
+\end{center}
+\begin{center}
+  \begin{tabular}{c |c| c}
+    cell1 & cell2 & cell3 \\
+    \hline
+    cell4 & cell5 & cell6 \\
+    \hline
+    cell7 & cell8 & cell9 \\
+  \end{tabular}
+\end{center}
+\begin{center}
+  \begin{tabular}{|c| c| c|}
+    \hline
+    cell1 & cell2 & cell3 \\
+    cell4 & cell5 & cell6 \\
+    cell7 & cell8 & cell9 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+
+
+\begin{table}[h!]
+ \begin{tabular}{||c c c c||} 
+ \hline
+ Col1 & Col2 & Col2 & Col3 \\ [0.5ex] 
+ \hline\hline
+ 1 & 6 & 87837 & 787 \\ 
+ \hline
+ 2 & 7 & 78 & 5415 \\
+ \hline
+ 3 & 545 & 778 & 7507 \\
+ \hline
+ 4 & 545 & 18744 & 7560 \\
+ \hline
+ 5 & 88 & 788 & 6344 \\ [1ex] 
+ \hline
+ \end{tabular}
+ \caption{Table to display caption and labels}
+ \label{table:data}
+\end{table}
+
+Table \ref{table:data} is an example of referenced \LaTeX{} elements
+
+\end{document}
