@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     {% if title %}
-    <title>Django Blog - Title</title>
+    <title>{{ title }}</title>
     {% else %}
-    <title>Django Blog -  NO Title</title>
+    <title>Login</title>
     {% endif %}
 </head>
 <body>
@@ -24,6 +24,9 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'blog-about' %}">About</a>
     </li>
+      <li class="nav-item">
+                <a class="nav-link" href="{% url 'post-create'%}">Upload Questions</a>
+            </li>
       <div class="navbar-nav">
           {% if user.is_authenticated %}
             <li class="nav-item">
@@ -31,6 +34,9 @@
             </li>
           <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile'%}">Profile</a>
+            </li>
+          <li class="nav-item">
+                <a class="nav-link" href="{% url 'change_password'%}">Change Password</a>
             </li>
           {% else%}
             <li class="nav-item">

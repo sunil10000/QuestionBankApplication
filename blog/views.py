@@ -7,7 +7,8 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView,Delet
 
 def home(request):
     context={
-        'questionBank': QuestionBank.objects.all()
+        'questionBank': QuestionBank.objects.all(),
+        'title': 'Home'
     }
     return render(request, 'blog/home.html', context)
 
@@ -18,11 +19,20 @@ class QuestionListView(ListView):
     context_object_name = 'posts'
     ordering = ['date_posted']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Home"
+        return context
+
 
 class QuestionDetailView(DetailView):
     model = QuestionBank
     template_name = 'blog/questionbank_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Details"
+        return context
 
 
 class QuestionCreateView(LoginRequiredMixin,CreateView):
@@ -40,6 +50,11 @@ class QuestionCreateView(LoginRequiredMixin,CreateView):
         # else:
         #     return render(request, 'blog/questionbank_form.html')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Create new post"
+        return context
+
 
 class QuestionUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = QuestionBank
@@ -53,6 +68,11 @@ class QuestionUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Update Post"
+        return context
+
 
 class QuestionDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = QuestionBank
@@ -62,9 +82,17 @@ class QuestionDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
         post = self.get_object()
         return self.request.user == post.author
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Delete Post"
+        return context
+
 
 def about(request):
-    return render(request, 'blog/about.html')
+    context = {
+        'title':"About"
+    }
+    return render(request, 'blog/about.html',context)
 
 
 # def upload(request):
