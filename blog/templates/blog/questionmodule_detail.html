@@ -1,0 +1,60 @@
+{% extends "blog/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <img class="rounded-circle article-img" width="10%" height="10%" src="{{ object.author.profile.image.url }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="{{ request.scheme }}://{{ request.get_host }}{% url 'profile' %}">{{ object.author }}</a>
+        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        </div>
+      <h2 class="article-title">{{ object.statement }}</h2>
+      <h2>All questions</h2>
+    <div>
+      {% for post in qs %}
+        {% if post.author == user and post.parent == object.id and not post.isRoot  %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.statement }}</a></h2>
+          </div>
+        </article>
+        {% endif %}
+    {% endfor %}
+    </div>
+    <h2>All question Modules</h2>
+    <div>
+      {% for post in qms %}
+        {% if post.author == user and post.parent == object.id and not post.isRoot  %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'module-detail' post.id %}">{{ post.statement }}</a></h2>
+          </div>
+        </article>
+        {% endif %}
+    {% endfor %}
+    </div>
+      </div>
+        {% if object.author == user %}
+        <div class="form-group">
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-update' object.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'module-delete' object.id %}">Delete</a>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-create' %}?parent={{object.id}}&isRoot=0">Add a question</a>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-create' %}?parent={{object.id}}&isRoot=0">Add a question Module</a>
+                    {% if object.isRoot %}
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bank-detail' object.parent %}">Go to parent module</a>
+                    {% else %}
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-detail' object.parent %}">Go to parent module</a>
+                    {% endif %}
+        </div>
+        {% endif %}
+  </article>
+{% endblock content %}

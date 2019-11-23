@@ -1,0 +1,14 @@
+connect localhost 5000
+add 2
+add 2
+add 2
+add 2
+add 2
+add 2
+disconnect
+sleep 3000
+connect localhost 5000
+read 2
+add 2
+read 2
+disconnect
