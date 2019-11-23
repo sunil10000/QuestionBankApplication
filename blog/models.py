@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.forms import TextInput, Textarea
+from django.core.validators import FileExtensionValidator
+from QuestionBankApplication import  settings
 
 
 class Question(models.Model):
@@ -52,3 +54,7 @@ class QuestionBank(models.Model):
     def get_absolute_url(self):
         return reverse('bank-detail', kwargs={'pk': self.pk})
 
+
+class UploadedFile(models.Model):
+    file = models.FileField(upload_to="QuestionFiles",
+                            validators=[FileExtensionValidator(allowed_extensions=['ini'])])

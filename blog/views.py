@@ -1,8 +1,15 @@
 from django.shortcuts import render,redirect
 from .models import Question,QuestionBank,QuestionModule
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
-from django.core.files.storage import FileSystemStorage
+from django.forms.models import model_to_dict
+from .forms import AddQuestion,FileUploadForm
+import configparser
+import os
+from django.core.files.storage import default_storage
+from django.conf import settings
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
+from django.core.files.base import ContentFile
+
 
 
 # def home(request):
@@ -11,6 +18,58 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView,Delet
 #         'title': 'Home'
 #     }
 #     return render(request, 'blog/home.html', context)
+
+
+def handle_uploaded_file(myfile):
+    print(myfile.read())
+    path = default_storage.save('tmp/32099slkdjfn.ini', ContentFile(myfile.read()))
+    tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+    with open(tmp_file, 'r') as f:
+        print(f.read())
+    config = configparser.ConfigParser()
+    config.read_file(tmp_file)
+    dictionary = {}
+    print(config.sections())
+    for section in config.sections():
+        print("hi"+section)
+        dictionary[section] = {}
+        for option in config.options(section):
+            dictionary[section][option] = config.get(section, option)
+    print(dictionary)
+    return dictionary
+
+
+def add_question(request, *args, **kwargs):
+    mydict = request.session.get('mydict')
+    if request.method == 'POST':
+        question_form = AddQuestion(request.POST, request.FILES)
+        if question_form.is_valid():
+            question_form.save()
+            # mydict['section_list'] = mydict.section_list[1:]
+            return redirect(add_question, mydict=mydict)
+        else:
+            return render(request, "blog/question_form2.html", {'form': question_form, 'dict': mydict})
+    else:
+        if False:
+            redirect('blog-home')                                     # if len(mydict.section_list) == 0:
+        else:
+            question_form = AddQuestion()
+            return render(request, "blog/question_form2.html", {'form': question_form, 'dict': mydict})
+
+
+def upload_files(request):
+    if request.method == 'POST':
+        file_form = FileUploadForm(request.POST, request.FILES)
+        if file_form.is_valid():
+            file_form.save()
+            mydict = handle_uploaded_file(request.FILES['file'])
+            request.session['mydict'] = mydict
+            return redirect(add_question)
+        else:
+            return render(request, "blog/upload_questions.html", {'form': file_form})
+    else:
+        file_form = FileUploadForm()
+        return render(request, "blog/upload_questions.html", {'form': file_form})
 
 
 class QuestionListView(ListView):
@@ -195,7 +254,7 @@ class QuestionModuleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView
         self.object = self.get_object()
         success_url = self.get_success_url()
         id = self.object.parent
-        delete_module(id)
+        # delete_module(id)
         self.object.delete()
         return redirect(success_url)
 
@@ -217,8 +276,8 @@ class QuestionBankDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         success_url = self.get_success_url()
-        id = self.object.parent
-        delete_bank(id)
+        id = self.object.id
+        # delete_bank(id)
         self.object.delete()
         return redirect(success_url)
 
@@ -239,7 +298,7 @@ class QuestionDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 
 def delete_bank(id):
     Question.objects.get(parent=id, isRoot=1).delete()
-    qms = QuestionModule.objects.get(parent=id, isRoot=1)
+    qms = model_to_dict(QuestionModule.objects.filter(parent=id, isRoot=1))
     for qm in qms:
         delete_module(qm.id)
     qms.delete()
@@ -247,9 +306,14 @@ def delete_bank(id):
 
 def delete_module(id):
     qus = Question.objects.filter(parent=id, isRoot=0)
+    print("start")
+    print(id)
     for q in qus:
+        print("hi"+q.statement)
         q.delete()
-    qms = QuestionModule.objects.filter(parent=id, isRoot=0)
+    qms = model_to_dict(QuestionModule.objects.filter(parent=id, isRoot=0))
     for qm in qms:
+        print("hi"+qms.statement)
         delete_module(qm.id)
     qms.delete()
+    print("end")

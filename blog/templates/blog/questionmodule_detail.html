@@ -49,6 +49,7 @@
                     <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'module-delete' object.id %}">Delete</a>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-create' %}?parent={{object.id}}&isRoot=0">Add a question</a>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-create' %}?parent={{object.id}}&isRoot=0">Add a question Module</a>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'upload-file' %}?parent={{object.id}}&isRoot=0">Upload Question File</a>
                     {% if object.isRoot %}
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bank-detail' object.parent %}">Go to parent module</a>
                     {% else %}

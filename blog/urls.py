@@ -9,8 +9,10 @@ urlpatterns = [
 
 
     path('post/new/', QuestionCreateView.as_view(), name='post-create'),
+    path('post/newQuestionViaFile/', views.add_question, name='qvf-create'),
     path('post/newBank/', QuestionBankCreateView.as_view(), name='bank-create'),
     path('post/newModule/', QuestionModuleCreateView.as_view(), name='module-create'),
+    path('post/newFile/', views.upload_files, name='upload-file'),
 
     path('post/<int:pk>/', QuestionDetailView.as_view(), name='post-detail'),
     path('post/qb/<int:pk>/', QuestionBankDetailView.as_view(), name='bank-detail'),

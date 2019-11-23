@@ -1,6 +1,14 @@
 from django import forms
+from .models import UploadedFile,Question
 
 
-class QuestionUploadForm(forms.Form):
-    title = forms.CharField(max_length=100)
-    file = forms.FileField()
+class FileUploadForm(forms.ModelForm):
+    class Meta:
+        model = UploadedFile
+        fields = ['file']
+
+
+class AddQuestion(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['statement', 'answer', 'marks', 'difficulty', 'tags', 'parent', 'isRoot']
