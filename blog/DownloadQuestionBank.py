@@ -4,9 +4,9 @@ from .models import QuestionBank, Question, QuestionModule
 
 
 def downloadbank(bankid):
-    QB = QuestionBank.objects.filter(pk=bankid)
+    QB = QuestionBank.objects.get(pk=bankid)
     f = open("media/Bank.tex", "w+")
-    header = QB.title
+    header = str(QB.title).replace(" ", r" \ ").replace("_", "-")
     j = 1
     f.close()
     with open("media/Bank.tex", "w+") as f:
@@ -79,3 +79,5 @@ def downloadbank(bankid):
             questionmodule(qm.id)
         f.write("\\end{enumerate}\n")
         f.write("\\end{document}\n")
+
+    os.system("pdflatex -output-directory media media/Bank.tex")

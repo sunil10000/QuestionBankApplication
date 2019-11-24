@@ -5,7 +5,7 @@ from .models import QuizPaper, Question, QuestionModule
 
 def generate_quiz(quizpaperid, title):
     f = open("media/Quiz.tex", "w+")
-    header = title
+    header = str(title).replace(" ", r" \ ").replace("_", "-")
     j = 1
     f.close()
     with open("media/Quiz.tex", "w+") as f:

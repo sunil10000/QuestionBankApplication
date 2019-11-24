@@ -31,3 +31,7 @@ class ExportForm(forms.Form):
     quiz_id = forms.IntegerField()
 
 
+class DownloadForm(forms.Form):
+    qbid = forms.IntegerField()
+
+

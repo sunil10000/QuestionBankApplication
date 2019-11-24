@@ -1,17 +1,19 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from .models import Question,QuestionBank,QuestionModule, UploadedFile, QuizPaper
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.forms.models import model_to_dict
-from .forms import AddQuestion,FileUploadForm,ChoseDrowDown,RemoveForm, ExportForm
+from .forms import AddQuestion,FileUploadForm,ChoseDrowDown,RemoveForm, ExportForm, DownloadForm
 import configparser
 import os
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
+from django.views.generic.detail import BaseDetailView
 from django.core.files.base import ContentFile
 from .filters import QuestionFilter, QuestionModuleFilter
 from .Feature1 import generate_quiz
-
+from django.http import FileResponse
+from .DownloadQuestionBank import downloadbank
 
 
 # def home(request):
@@ -20,6 +22,39 @@ from .Feature1 import generate_quiz
 #         'title': 'Home'
 #     }
 #     return render(request, 'blog/home.html', context)
+def remove_from_quizzes(q_id):
+    quizs = QuizPaper.objects.all()
+    for quiz in quizs:
+        qid_list = quiz.qid_list.split(",")
+        qid_list = set(qid_list)
+        if q_id in qid_list:
+            qid_list.remove(q_id)
+        qid_list = list(qid_list)
+        qid_list = ",".join(qid_list)
+        quiz.qid_list = qid_list
+        quiz.save()
+
+
+def remove_from_quizzes2(qm_id):
+    quizs = QuizPaper.objects.all()
+    for quiz in quizs:
+        qmid_list = quiz.qmid_list.split(",")
+        qmid_list = set(qmid_list)
+        if qm_id in qmid_list:
+            print("deleting")
+            print(qm_id)
+            qmid_list.remove(qm_id)
+        qmid_list = list(qmid_list)
+        qmid_list = ",".join(qmid_list)
+        quiz.qmid_list = qmid_list
+        quiz.save()
+    qs = Question.objects.filter(parent=qm_id,isRoot=0)
+    for q in qs:
+        remove_from_quizzes(q)
+    qms = QuestionModule.objects.filter(parent=qm_id,isRoot=0)
+    for qm in qms:
+        remove_from_quizzes2(qm)
+
 
 def remove_from_quiz(request):
     form = RemoveForm()
@@ -85,7 +120,7 @@ def select_quiz(request):
                 qmid_list.add(q_id)
                 qmid_list = list(qmid_list)
                 qmid_list = ",".join(qmid_list)
-                quiz.qid_list = qmid_list
+                quiz.qmid_list = qmid_list
                 quiz.save()
                 return redirect('module-detail', q_id)
         else:
@@ -444,9 +479,10 @@ class QuestionModuleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        success_url = self.get_success_url()
         delete_module(self.object.id)
+        remove_from_quizzes2(self.object.id)
         self.object.delete()
+        success_url = self.get_success_url()
         if self.object.isRoot == 0:
             set_marks(self.object.parent)
         return redirect(success_url)
@@ -503,8 +539,9 @@ class QuestionDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        success_url = self.get_success_url()
+        remove_from_quizzes(self.object.id)
         self.object.delete()
+        success_url = self.get_success_url()
         if self.object.isRoot == 0:
             set_marks(self.object.parent)
         return redirect(success_url)
@@ -564,8 +601,36 @@ def export(request):
             quiz_id = form.cleaned_data['quiz_id']
             title = form.cleaned_data['title']
             generate_quiz(quiz_id, title)
-            return redirect('quiz-detail', quiz_id)
+            return redirect('quiz-download')
         else:
             return render(request, "blog/export.html", {'form': form})
     else:
         return render(request, "blog/export.html", {'form': form})
+
+
+def download(request):
+    form = DownloadForm()
+    if request.method == "POST":
+        form = DownloadForm(request.POST)
+        if form.is_valid():
+            qbid = form.cleaned_data['qbid']
+            downloadbank(qbid)
+            return redirect('qb-download')
+        else:
+            return render(request, "blog/download.html", {'form': form})
+    else:
+        return render(request, "blog/download.html", {'form': form})
+
+
+def pdf_view(request):
+    with open('media/Quiz.pdf', 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+        return response
+
+
+def pdf_view2(request):
+    with open('media/Bank.pdf', 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+        return response

@@ -11,6 +11,9 @@ urlpatterns = [
     path('searchQuestions/', SearchableQuestionListView.as_view(), name='question-search'),
     path('searchQuestionModules/', SearchableQuestionModuleListView.as_view() , name='module-search'),
     path('export/', views.export , name="export"),
+    path('quiz/', views.pdf_view, name="quiz-download"),
+    path('download/', views.download, name='download'),
+    path('qb/',views.pdf_view2, name="qb-download"),
 
 
 
