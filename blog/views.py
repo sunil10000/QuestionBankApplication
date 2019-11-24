@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Question,QuestionBank,QuestionModule, UploadedFile, QuizPaper
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.forms.models import model_to_dict
-from .forms import AddQuestion,FileUploadForm,ChoseDrowDown,RemoveForm
+from .forms import AddQuestion,FileUploadForm,ChoseDrowDown,RemoveForm, ExportForm
 import configparser
 import os
 from django.core.files.storage import default_storage
@@ -10,6 +10,7 @@ from django.conf import settings
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.core.files.base import ContentFile
 from .filters import QuestionFilter, QuestionModuleFilter
+from .Feature1 import generate_quiz
 
 
 
@@ -529,27 +530,42 @@ def delete_module(id):
         qm.delete()
 
 
-# class SearchableQuestionListView(ListView):
-#     model = QuestionBank
-#     template_name = 'blog/search_questions.html' #<app>/<model>_<ListView>.html
-#     context_object_name = 'questions'
-#     ordering = ['date_posted']
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = "Home"
-#         context['filter'] = QuestionFilter(self.request.GET, queryset=self.get_queryset())
-#         return context
-#
-#
-# class SearchableQuestionModuleListView(ListView):
-#     model = QuestionBank
-#     template_name = 'blog/search_qms.html' #<app>/<model>_<ListView>.html
-#     context_object_name = 'modules'
-#     ordering = ['date_posted']
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = "Home"
-#         context['filter'] = QuestionModuleFilter(self.request.GET, queryset=self.get_queryset())
-#         return context
+class SearchableQuestionListView(ListView):
+    model = QuestionBank
+    template_name = 'blog/search_questions.html' #<app>/<model>_<ListView>.html
+    context_object_name = 'questions'
+    ordering = ['date_posted']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Home"
+        context['filter'] = QuestionFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
+
+class SearchableQuestionModuleListView(ListView):
+    model = QuestionBank
+    template_name = 'blog/search_qms.html' #<app>/<model>_<ListView>.html
+    context_object_name = 'modules'
+    ordering = ['date_posted']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Home"
+        context['filter'] = QuestionModuleFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
+
+def export(request):
+    form = ExportForm()
+    if request.method == "POST":
+        form = ExportForm(request.POST)
+        if form.is_valid():
+            quiz_id = form.cleaned_data['quiz_id']
+            title = form.cleaned_data['title']
+            generate_quiz(quiz_id, title)
+            return redirect('quiz-detail', quiz_id)
+        else:
+            return render(request, "blog/export.html", {'form': form})
+    else:
+        return render(request, "blog/export.html", {'form': form})

@@ -1,0 +1,37 @@
+{% extends "blog/base.html"%}
+{% load crispy_forms_tags %}
+{% block content%}
+        <div class="content-section">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Export Question Paper</legend>
+                {{ form| crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Post</button>
+                </div>
+            </form>
+        </div>
+{% endblock content %}
+{% block content_java %}
+<script >
+    var url = document.location.href,
+        params = url.split('?')[1].split('&'),
+        data = {}, tmp;
+    for (var i = 0, l = params.length; i < l; i++) {
+         tmp = params[i].split('=');
+         data[tmp[0]] = tmp[1];
+    }
+    console.log("hi")
+    console.log(params)
+    document.getElementById('id_quiz_id').value = data.quiz;
+<!--    document.getElementById('id_quiz').type = "hidden"-->
+    tags = document.getElementsByTagName('label'), l = tags.length, i;
+for( i=0; i<l; i++) {
+if(tags[i].for=="id_parent" || tags[i].for=="id_isRoot"){
+    tags[i].innerHTML = "";
+    }
+    }
+</script>
+{% endblock content_java %}

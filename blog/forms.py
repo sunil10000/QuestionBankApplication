@@ -25,3 +25,9 @@ class RemoveForm(forms.Form):
     quiz_id = forms.CharField()
     isQ = forms.CharField()
 
+
+class ExportForm(forms.Form):
+    title = forms.CharField()
+    quiz_id = forms.IntegerField()
+
+
