@@ -15,7 +15,8 @@ class Question(models.Model):
     statement = models.TextField()
     answer = models.TextField(blank=True, null=True)
     marks = models.PositiveIntegerField()
-    tags = models.TextField()
+    chapter_tag = models.CharField(max_length=1000)
+    section_tag = models.CharField(max_length=1000)
 
     parent = models.PositiveIntegerField(null=True)
     isRoot = models.IntegerField()

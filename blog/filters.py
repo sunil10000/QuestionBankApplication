@@ -8,21 +8,15 @@ class DateInput(forms.DateInput):
 
 
 class QuestionFilter(django_filters.FilterSet):
-    # date_posted = django_filters.DateTimeFilter(
-    #     widget=DateInput(
-    #         attrs={
-    #             'class': 'datepicker'
-    #         }
-    #     ),
-    #     lookup_expr='exact'
-    # )
+
 
     class Meta:
         model = Question
         fields = {
             'statement': ['icontains'],
             'marks': ['gt', 'lt', 'exact'],
-            'tags': ['icontains'],
+            'chapter_tag': ['icontains'],
+            'section_tag': ['icontains']
         }
 
 

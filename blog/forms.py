@@ -11,7 +11,7 @@ class FileUploadForm(forms.ModelForm):
 class AddQuestion(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['statement', 'answer', 'marks', 'difficulty', 'tags', 'parent', 'isRoot']
+        fields = ['statement', 'answer', 'marks', 'difficulty', 'chapter_tag', 'parent', 'isRoot']
 
 
 class ChoseDrowDown(forms.Form):
@@ -28,10 +28,10 @@ class RemoveForm(forms.Form):
 
 class ExportForm(forms.Form):
     title = forms.CharField()
-    top_border_in_inchs = forms.IntegerField()
-    bottom_border_in_inchs = forms.IntegerField()
-    left_border_in_inchs = forms.IntegerField()
-    right_border_in_inchs = forms.IntegerField()
+    top_border_in_inchs = forms.DecimalField(max_digits=2)
+    bottom_border_in_inchs = forms.DecimalField(max_digits=2)
+    left_border_in_inchs = forms.DecimalField(max_digits=2)
+    right_border_in_inchs = forms.DecimalField(max_digits=2)
     quiz_id = forms.IntegerField()
 
 

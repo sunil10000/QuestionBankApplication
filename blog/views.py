@@ -151,6 +151,11 @@ def handle_uploaded_file(myfile):
         for option in config.options(section):
             mydict[option] = config.get(section, option)
         dictionary.append(mydict)
+    dict2 = dict(config['DEFAULT'])
+    for key,val in dict2.items():
+        for mydict in dictionary:
+            if key not in mydict.keys():
+                mydict[key] = val
     print(dictionary)
     return dictionary
 
@@ -165,6 +170,11 @@ def add_question(request, *args, **kwargs):
         question_form = AddQuestion(request.POST, request.FILES)
         if question_form.is_valid():
             question_form.instance.author = request.user
+            tags = str(question_form.cleaned_data['chapter_tag']).split(":")
+            if len(tags) == 1:
+                tags.append('')
+            question_form.instance.chapter_tag = tags[0]
+            question_form.instance.section_tag = tags[1]
             question_form.save()
             request.session['mydict'] = mydict[1:]
             return redirect(add_question)
@@ -288,10 +298,15 @@ class QuestionModuleCreateView(LoginRequiredMixin, CreateView):
 
 class QuestionCreateView(LoginRequiredMixin,CreateView):
     model = Question
-    fields = ['statement', 'answer', 'marks', 'difficulty', 'tags', 'parent', 'isRoot']
+    fields = ['statement', 'answer', 'marks', 'difficulty', 'chapter_tag', 'parent', 'isRoot']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        tags = str(form.cleaned_data['chapter_tag']).split(":")
+        form.instance.chapter_tag = tags[0]
+        if len(tags) == 1:
+            tags.append('')
+        form.instance.section_tag = tags[1]
         form.save()
         if form.cleaned_data['isRoot'] == 0:
             set_marks(form.cleaned_data['parent'])
@@ -445,7 +460,7 @@ class QuestionModuleUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView
 
 class QuestionUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Question
-    fields = ['statement', 'answer', 'marks', 'difficulty', 'tags', 'parent', 'isRoot']
+    fields = ['statement', 'answer', 'marks', 'difficulty', 'chapter_tag', 'section_tag', 'parent', 'isRoot']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
