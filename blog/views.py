@@ -600,7 +600,11 @@ def export(request):
         if form.is_valid():
             quiz_id = form.cleaned_data['quiz_id']
             title = form.cleaned_data['title']
-            generate_quiz(quiz_id, title)
+            top = form.cleaned_data['top_border_in_inchs']
+            bottom = form.cleaned_data['bottom_border_in_inchs']
+            left = form.cleaned_data['left_border_in_inchs']
+            right = form.cleaned_data['right_border_in_inchs']
+            generate_quiz(quiz_id, title, top, bottom, left, right)
             return redirect('quiz-download')
         else:
             return render(request, "blog/export.html", {'form': form})

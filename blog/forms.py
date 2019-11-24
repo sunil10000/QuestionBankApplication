@@ -28,6 +28,10 @@ class RemoveForm(forms.Form):
 
 class ExportForm(forms.Form):
     title = forms.CharField()
+    top_border_in_inchs = forms.IntegerField()
+    bottom_border_in_inchs = forms.IntegerField()
+    left_border_in_inchs = forms.IntegerField()
+    right_border_in_inchs = forms.IntegerField()
     quiz_id = forms.IntegerField()
 
 
