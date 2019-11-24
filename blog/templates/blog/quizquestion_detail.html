@@ -1,5 +1,10 @@
 {% extends "blog/base.html" %}
 {% block content %}
+        {% if object.author == user %}
+          <div>
+              <a id="link" class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'remove' %}">Remove</a>
+          </div>
+        {% endif %}
   <article class="media content-section">
     <img class="rounded-circle article-img" width="10%" height="10%" src="{{ object.author.profile.image.url }}">
     <div class="media-body">
@@ -16,11 +21,6 @@
       </p>
 
       </div>
-        {% if object.author == user %}
-          <div>
-              <a id="link" class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'remove' %}">Remove</a>
-          </div>
-        {% endif %}
   </article>
 {% endblock content %}
 {% block content_java %}

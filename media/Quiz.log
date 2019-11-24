@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  24 NOV 2019 17:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  24 NOV 2019 19:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -106,17 +106,25 @@ LaTeX Font Info:    ... okay on input line 3.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.6 ssl_
-        endsem
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 8.
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10 \begin{enumerate}\end{enumerate}
+                                     
 ? 
 ! Interruption.
-<to be read again> 
-                   _
-l.6 ssl_
-        endsem
+\GenericError  ...                                
+                                                  \endgroup 
+l.10 \begin{enumerate}\end{enumerate}
+                                     
 ? ^^[[A
 Type <return> to proceed, S to scroll future error messages,
 R to run without stopping, Q to run quietly,
@@ -124,23 +132,19 @@ I to insert something, E to edit your file,
 H for help, X to quit.
 ? 
 ! Emergency stop.
-<to be read again> 
-                   _
-l.6 ssl_
-        endsem
+\GenericError  ...                                
+                                                  \endgroup 
+l.10 \begin{enumerate}\end{enumerate}
+                                     
 End of file on the terminal!
 
  
 Here is how much of TeX's memory you used:
- 733 strings out of 492982
- 10136 string characters out of 6134896
+ 735 strings out of 492982
+ 10164 string characters out of 6134896
  68593 words of memory out of 5000000
- 4364 multiletter control sequences out of 15000+600000
+ 4366 multiletter control sequences out of 15000+600000
  3640 words of font info for 14 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 23i,1n,19p,204b,67s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 23i,4n,19p,204b,139s stack positions out of 5000i,500n,10000p,200000b,80000s
 !  ==> Fatal error occurred, no output PDF file produced!
-eam
- 0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
-

@@ -23,6 +23,7 @@ from .DownloadQuestionBank import downloadbank
 #     }
 #     return render(request, 'blog/home.html', context)
 def remove_from_quizzes(q_id):
+    q_id = str(q_id)
     quizs = QuizPaper.objects.all()
     for quiz in quizs:
         qid_list = quiz.qid_list.split(",")
@@ -36,24 +37,25 @@ def remove_from_quizzes(q_id):
 
 
 def remove_from_quizzes2(qm_id):
+    qm_id2 = str(qm_id)
     quizs = QuizPaper.objects.all()
     for quiz in quizs:
         qmid_list = quiz.qmid_list.split(",")
         qmid_list = set(qmid_list)
-        if qm_id in qmid_list:
+        if qm_id2 in qmid_list:
             print("deleting")
-            print(qm_id)
-            qmid_list.remove(qm_id)
+            print(qm_id2)
+            qmid_list.remove(qm_id2)
         qmid_list = list(qmid_list)
         qmid_list = ",".join(qmid_list)
         quiz.qmid_list = qmid_list
         quiz.save()
     qs = Question.objects.filter(parent=qm_id,isRoot=0)
     for q in qs:
-        remove_from_quizzes(q)
+        remove_from_quizzes(q.id)
     qms = QuestionModule.objects.filter(parent=qm_id,isRoot=0)
     for qm in qms:
-        remove_from_quizzes2(qm)
+        remove_from_quizzes2(qm.id)
 
 
 def remove_from_quiz(request):
