@@ -8,7 +8,6 @@
         <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
         </div>
       <h2 class="article-title">{{ object.statement }}</h2>
-      <h2 class="article-title">{{ object.marks }}</h2>
       <h2>All questions</h2>
     <div>
       {% for post in qs %}
@@ -20,7 +19,7 @@
               <a class="mr-2" href="#">{{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.statement }}</a></h2>
+            <h2><a  class="article-title" href="{% url 'postQuiz-detail' post.id %}?quiz=not">{{ post.statement }}</a></h2>
           </div>
         </article>
         {% endif %}
@@ -37,7 +36,7 @@
               <a class="mr-2" href="#">{{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
-            <h2><a class="article-title" href="{% url 'module-detail' post.id %}">{{ post.statement }}</a></h2>
+            <h2><a  class="article-title" href="{% url 'moduleQuiz-detail' post.id %}?quiz=not">{{ post.statement }}</a></h2>
           </div>
         </article>
         {% endif %}
@@ -46,18 +45,26 @@
       </div>
         {% if object.author == user %}
         <div class="form-group">
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-update' object.id %}">Update</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'module-delete' object.id %}">Delete</a>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-create' %}?parent={{object.id}}&isRoot=0">Add a question</a>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-create' %}?parent={{object.id}}&isRoot=0">Add a question Module</a>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'upload-file' %}?parent={{object.id}}&isRoot=0">Upload Question File</a>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'quiz-select'%}?id={{object.id}}&isQ=0">Add to quiz</a>
-                    {% if object.isRoot %}
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'bank-detail' object.parent %}">Go to parent module</a>
-                    {% else %}
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-detail' object.parent %}">Go to parent module</a>
-                    {% endif %}
+                    <a id="link" class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'remove' %}">Remove</a>
         </div>
-        {% endif %}
-  </article>
+      {% endif %}
+        </article>
 {% endblock content %}
+{% block content_java %}
+<script language="javascript" type="text/javascript" >
+    var url = document.location.href,
+        params = url.split('?')[1].split('&'),
+        data = {}, tmp;
+    for (var i = 0, l = params.length; i < l; i++) {
+         tmp = params[i].split('=');
+         data[tmp[0]] = tmp[1];
+    }
+    scrt_val = data.quiz
+      document.getElementById("link").setAttribute("href","{% url 'remove' %}?id={{object.id}}&isQ=0&quiz="+scrt_val);
+      if(scrt_val=="not"){
+        var elem = document.getElementById("link")
+        elem.parentNode.removeChild(elem)
+      }
+
+</script>
+{% endblock content_java %}

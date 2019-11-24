@@ -102,6 +102,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# TEMPLATE_CONTEXT_PROCESSORS = (
+# 'django.core.context_processors.auth',
+# 'django.core.context_processors.debug',
+# 'django.core.context_processors.i18n',
+# 'QuestionBankApplication.blog.context_processors.category_form',
+# )
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

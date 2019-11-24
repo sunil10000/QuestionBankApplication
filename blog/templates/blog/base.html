@@ -22,13 +22,19 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'blog-home' %}">Home</a>
     </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'quiz-papers' %}">Quiz Papers</a>
+      </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'blog-about' %}">About</a>
     </li>
       <li class="nav-item">
-                <a class="nav-link" href="{% url 'post-create'%}">Upload Questions</a>
+<!--                <a class="nav-link" href="{% url 'post-create'%}">Upload Questions</a>-->
                 <a class="nav-link" href="{% url 'bank-create'%}">Upload QuestionBank</a>
 <!--                <a class="nav-link" href="{% url 'post-create'%}">Upload QuestionModule</a>-->
+            </li>
+          <li class="nav-item">
+                <a class="nav-link" href="{% url 'quiz-create'%}">Create Quiz Paper</a>
             </li>
       <div class="navbar-nav">
           {% if user.is_authenticated %}

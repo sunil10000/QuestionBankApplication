@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.forms import TextInput, Textarea
 from django.core.validators import FileExtensionValidator
 from QuestionBankApplication import  settings
+from django.core.validators import validate_comma_separated_integer_list
 
 
 class Question(models.Model):
@@ -58,3 +59,21 @@ class QuestionBank(models.Model):
 class UploadedFile(models.Model):
     file = models.FileField(upload_to="QuestionFiles",
                             validators=[FileExtensionValidator(allowed_extensions=['ini'])])
+    parent = models.PositiveIntegerField()
+    isRoot = models.IntegerField()
+
+
+class QuizPaper(models.Model):
+    title = models.CharField(max_length=1000)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    qid_list = models.CharField(validators=[validate_comma_separated_integer_list], max_length=1000)
+    qmid_list = models.CharField(validators=[validate_comma_separated_integer_list], max_length=1000)
+    date_posted = models.DateTimeField(default=timezone.now)
+
+    def get_absolute_url(self):
+        return reverse('quiz-detail', kwargs={'pk': self.pk})
+
+
+class JustToChose(models.Model):
+    choices = ()
+    option = models.CharField(max_length=9, choices=choices)
