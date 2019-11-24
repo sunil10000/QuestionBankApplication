@@ -6,7 +6,15 @@ class QuestionFilter(django_filters.FilterSet):
 
     class Meta:
         model = Question
-        fields = ('marks', 'tags', 'difficulty', 'date_posted')
+        fields = {
+            'statement': ['icontains'],
+            'marks': ['gt'],
+            'difficulty': [],
+        }
+        #     'tags' : ['icontains'],}
+        #     'difficulty'
+        #     'date_posted'
+        # }
 
 
 class QuestionModuleFilter(django_filters.FilterSet):

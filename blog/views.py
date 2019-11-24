@@ -531,7 +531,7 @@ def delete_module(id):
 
 
 class SearchableQuestionListView(ListView):
-    model = QuestionBank
+    model = Question
     template_name = 'blog/search_questions.html' #<app>/<model>_<ListView>.html
     context_object_name = 'questions'
     ordering = ['date_posted']
@@ -544,7 +544,7 @@ class SearchableQuestionListView(ListView):
 
 
 class SearchableQuestionModuleListView(ListView):
-    model = QuestionBank
+    model = QuestionModule
     template_name = 'blog/search_qms.html' #<app>/<model>_<ListView>.html
     context_object_name = 'modules'
     ordering = ['date_posted']
