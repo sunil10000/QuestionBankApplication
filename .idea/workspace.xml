@@ -124,17 +124,6 @@
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-        <option value="HTML File" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -228,6 +217,9 @@
       </pane>
     </panes>
   </component>
+=======
+  <component name="ProjectId" id="1U3bCqTKfzZxhrvRyaLHQjNneOI" />
+>>>>>>> 1fdec04d5a89e1db99928f51b9df1a6055fa6d85
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -258,6 +250,7 @@
     </task>
     <servers />
   </component>
+<<<<<<< HEAD
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
@@ -654,5 +647,19 @@
         </state>
       </provider>
     </entry>
+=======
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+>>>>>>> 1fdec04d5a89e1db99928f51b9df1a6055fa6d85
   </component>
 </project>
