@@ -102,6 +102,9 @@ def select_quiz(request):
             quiz_id = answer.split(":")[1]
             q_id = form.cleaned_data['qid']
             is_Q = form.cleaned_data['isQ']
+            print(type(is_Q))
+            print(is_Q)
+            print(q_id)
             if is_Q == '1':
                 quiz = QuizPaper.objects.get(pk=quiz_id)
                 qid_list = quiz.qid_list.split(",")
@@ -111,7 +114,7 @@ def select_quiz(request):
                 qid_list = ",".join(qid_list)
                 quiz.qid_list = qid_list
                 quiz.save()
-                return redirect('post-detail', q_id)
+                return redirect('quiz-detail', quiz_id)
             else:
                 quiz = QuizPaper.objects.get(pk=quiz_id)
                 quiz.qmid_list += "," + str(q_id)
@@ -122,13 +125,11 @@ def select_quiz(request):
                 qmid_list = ",".join(qmid_list)
                 quiz.qmid_list = qmid_list
                 quiz.save()
-                return redirect('module-detail', q_id)
+                return redirect('quiz-detail', quiz_id)
         else:
             return render(request, "blog/select_quiz.html", {'form': form})
     else:
         tup_list = QuizPaper.objects.values_list('title', 'id')
-        # for id,title in zip(quiz_ids,quiz_titles):
-        #     tup_list.append((id, title))
         tup_list = [('{0}:{1}'.format(p[0], p[1]),'{0}:{1}'.format(p[0], p[1])) for p in tup_list]
         form.fields['option'].choices = tup_list
         form.fields['option'].initial = tup_list[0]
@@ -315,7 +316,6 @@ def set_marks(id):
         set_marks(qm.parent)
 
 
-
 class QuizDetailView(DetailView):
     model = QuizPaper
     template_name = 'blog/quizpaper_detail.html'
@@ -479,8 +479,8 @@ class QuestionModuleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        delete_module(self.object.id)
         remove_from_quizzes2(self.object.id)
+        delete_module(self.object.id)
         self.object.delete()
         success_url = self.get_success_url()
         if self.object.isRoot == 0:
