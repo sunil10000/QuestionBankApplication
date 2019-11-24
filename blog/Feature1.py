@@ -14,17 +14,17 @@ def generate_quiz(quizpaperid, title):
         def questionadd(questid):
             print("inside question")
             ques = Question.objects.get(pk=questid)
-            statement = ques.statement
+            statement = str(ques.statement).replace(" ", r" \ ").replace("_", "-")
             marks = ques.marks
             f.write("\\item \seqsplit{" + statement + "}\\hfill\n")
             f.write("[" + str(marks) + " Marks]" + "\n")
-            f.write("\\" + "\\" + " Solution:")
-            f.write("\\vspace*{" + str((marks * 20)) + "pt}")
+            f.write(r"\\Solution:\\ ")
+            f.write(r"\vspace*{" + str((marks * 20)) + "pt}")
 
         def questionmodule(moduleid):
             print("inside question module")
             quesmodule = QuestionModule.objects.get(pk=moduleid)
-            statement = quesmodule.statement
+            statement = str(quesmodule.statement).replace(" ", r" \ ").replace("_", "-")
             marks = quesmodule.marks
             f.write("\\item \seqsplit{" + statement + "}\\hfill\n")
             f.write("[" + str(marks) + " Marks]" + "\n")
