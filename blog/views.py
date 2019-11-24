@@ -9,6 +9,7 @@ from django.core.files.storage import default_storage
 from django.conf import settings
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.core.files.base import ContentFile
+from .filters import QuestionFilter, QuestionModuleFilter
 
 
 
@@ -520,11 +521,35 @@ def delete_bank(id):
 
 def delete_module(id):
     qus = Question.objects.filter(parent=id, isRoot=0)
-    print("start")
     for q in qus:
         q.delete()
     qms = QuestionModule.objects.filter(parent=id, isRoot=0)
     for qm in qms:
         delete_module(qm.id)
         qm.delete()
-    print("end")
+
+
+# class SearchableQuestionListView(ListView):
+#     model = QuestionBank
+#     template_name = 'blog/search_questions.html' #<app>/<model>_<ListView>.html
+#     context_object_name = 'questions'
+#     ordering = ['date_posted']
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = "Home"
+#         context['filter'] = QuestionFilter(self.request.GET, queryset=self.get_queryset())
+#         return context
+#
+#
+# class SearchableQuestionModuleListView(ListView):
+#     model = QuestionBank
+#     template_name = 'blog/search_qms.html' #<app>/<model>_<ListView>.html
+#     context_object_name = 'modules'
+#     ordering = ['date_posted']
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = "Home"
+#         context['filter'] = QuestionModuleFilter(self.request.GET, queryset=self.get_queryset())
+#         return context

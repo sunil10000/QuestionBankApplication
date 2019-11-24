@@ -36,6 +36,12 @@
           <li class="nav-item">
                 <a class="nav-link" href="{% url 'quiz-create'%}">Create Quiz Paper</a>
             </li>
+      <li class="nav-item">
+                <a class="nav-link" href="{% url 'question-search'%}">Search Questions</a>
+            </li>
+      <li class="nav-item">
+                <a class="nav-link" href="{% url 'module-search'%}">Search Question Modules</a>
+            </li>
       <div class="navbar-nav">
           {% if user.is_authenticated %}
             <li class="nav-item">

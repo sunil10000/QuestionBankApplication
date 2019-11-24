@@ -8,6 +8,8 @@ urlpatterns = [
     path('quizzes/', QuizListView.as_view(), name='quiz-papers'),
     path('quizSelect/', views.select_quiz, name='quiz-select'),
     path('remove/', views.remove_from_quiz, name='remove'),
+    # path('searchQuestions/', SearchableQuestionListView.as_view(), name='question-search'),
+    # path('searchQuestionModules/', SearchableQuestionModuleListView.as_view() , name='module-search'),
 
 
 

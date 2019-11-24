@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    div class="content-section">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Create Question Bank</legend>
+                {{ filter.form| crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info">Submit</button>
+                </div>
+            </form>
+        </div>
+    <div>
+      {% for post in filter.qs %}
+        {% if post.author == user %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'module-detail' post.id %}">{{ post.statement }}</a></h2>
+          </div>
+        </article>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock content %}>
