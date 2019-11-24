@@ -1,24 +1,27 @@
 import os
 import sys
-from .models import QuizPaper, Question, QuestionModule
+from .models import QuestionBank, Question, QuestionModule
 
 
-def generate_quiz(quizpaperid, title):
-    f = open("media/Quiz.tex", "w+")
-    header = title
+def downloadbank(bankid):
+    QB = QuestionBank.objects.filter(pk=bankid)
+    f = open("media/Bank.tex", "w+")
+    header = QB.title
     j = 1
     f.close()
-    with open("media/Quiz.tex", "w+") as f:
+    with open("media/Bank.tex", "w+") as f:
 
         def questionadd(questid):
             print("inside question")
             ques = Question.objects.get(pk=questid)
             statement = str(ques.statement).replace(" ", r" \ ").replace("_", "-")
             marks = ques.marks
+            answer = str(ques.answer).replace(" ", r" \ ").replace("_", "-")
             f.write("\\item \seqsplit{" + statement + "}\\hfill\n")
             f.write("[" + str(marks) + " Marks]" + "\n")
-            f.write(r"\\Solution:\\ ")
-            f.write(r"\vspace*{" + str((marks * 15)) + "pt}")
+            f.write(r"\\Solution: ")
+            f.write(answer+r"\\")
+            f.write(r"\vspace*{10pt}")
 
         def questionmodule(moduleid):
             print("inside question module")
@@ -47,20 +50,20 @@ def generate_quiz(quizpaperid, title):
         f.write(header+"\n")
         f.write("\\"+"\\")
         f.write("\\vspace*{1cm}\n")
-        quiz = QuizPaper.objects.get(pk=quizpaperid)
-        qidlist = list(quiz.qid_list.split(","))[1:]
-        qmidlist = list(quiz.qmid_list.split(","))[1:]
+
+        qidlist = Question.objects.filter(parent=bankid, isRoot=1)
+        qmidlist = QuestionModule.objects.filter(parent=bankid, isRoot=1)
         f.write("\\begin{tabular}{|c|c|}\n")
         f.write("\\hline ")
 
         # create table
         for q in qidlist:
-            quizmarks = Question.objects.get(pk=q).marks
+            quizmarks = Question.objects.get(pk=q.id).marks
             f.write("Q"+str(j)+" & "+str(quizmarks)+" \\"+"\\ ")
             j = j+1
             f.write("\\hline ")
         for qm in qmidlist:
-            quizmarks = QuestionModule.objects.get(pk=qm).marks
+            quizmarks = QuestionModule.objects.get(pk=qm.id).marks
             f.write("Q" + str(j) + " & " + str(quizmarks) + " \\" + "\\ ")
             f.write("\\hline ")
             j = j+1
@@ -70,13 +73,9 @@ def generate_quiz(quizpaperid, title):
         f.write("\\begin{enumerate}")
         # update enumerate
         for q in qidlist:
-            questionadd(q)
+            questionadd(q.id)
 
         for qm in qmidlist:
-            questionmodule(qm)
+            questionmodule(qm.id)
         f.write("\\end{enumerate}\n")
         f.write("\\end{document}\n")
-
-    os.system("pdflatex -output-directory media media/Quiz.tex")
-
-
