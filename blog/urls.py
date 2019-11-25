@@ -14,6 +14,7 @@ urlpatterns = [
     path('quiz/', views.pdf_view, name="quiz-download"),
     path('download/', views.download, name='download'),
     path('qb/',views.pdf_view2, name="qb-download"),
+    path('qb-upload/', views.upload_qbfiles, name='qb-upload'),
 
 
     path('post/new/', QuestionCreateView.as_view(), name='post-create'),

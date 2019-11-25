@@ -60,6 +60,7 @@ class QuestionBank(models.Model):
 class UploadedFile(models.Model):
     file = models.FileField(upload_to="QuestionFiles",
                             validators=[FileExtensionValidator(allowed_extensions=['ini'])])
+    title = models.CharField(max_length=1000)
     parent = models.PositiveIntegerField()
     isRoot = models.IntegerField()
 

@@ -23,7 +23,7 @@ def generate_quiz(quizpaperid, title, top, bottom, left, right):
         def questionmodule(moduleid):
             print("inside question module")
             quesmodule = QuestionModule.objects.get(pk=moduleid)
-            statement = str(quesmodule.statement).replace(" ", r" \ ").replace("_", "-")
+            statement = str(quesmodule.statement)
             marks = quesmodule.marks
             f.write("\\item " + statement + "\\hfill\n")
             f.write("[" + str(marks) + " Marks]" + "\n")
@@ -92,5 +92,7 @@ def generate_quiz(quizpaperid, title, top, bottom, left, right):
         f.write("\\end{document}\n")
 
     os.system("pdflatex -output-directory media media/Quiz.tex")
+
+
 
 

@@ -8,6 +8,12 @@ class FileUploadForm(forms.ModelForm):
         fields = ['file', 'parent', 'isRoot']
 
 
+class FileUploadForm2(forms.ModelForm):
+    class Meta:
+        model = UploadedFile
+        fields = ['file', 'title']
+
+
 class AddQuestion(forms.ModelForm):
     class Meta:
         model = Question

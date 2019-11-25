@@ -1,10 +1,12 @@
 {% extends "blog/base.html" %}
 {% block content %}
+<br>
 {% if object.author == user %}
         <div class="form-group">
                     <a id="link" class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'remove' %}">Remove</a>
         </div>
       {% endif %}
+<br>
   <article class="media content-section">
     <img class="rounded-circle article-img" width="10%" height="10%" src="{{ object.author.profile.image.url }}">
     <div class="media-body">
@@ -14,10 +16,14 @@
         </div>
       <h2 class="article-title">{{ object.statement }}</h2>
       <h2 class="article-title">{{ object.marks }} </h2>
+      <br>
+      <div class="card">
       <h2>All questions</h2>
+      <br><br>
     <div>
       {% for post in qs %}
         {% if post.author == user and post.parent == object.id and not post.isRoot  %}
+      <div class="card">
         <article class="media content-section">
           <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
@@ -28,13 +34,19 @@
             <h2><a  class="article-title" href="{% url 'postQuiz-detail' post.id %}?quiz=not">{{ post.statement }}</a></h2>
           </div>
         </article>
+      </div>
+      <br><br>
         {% endif %}
     {% endfor %}
     </div>
+      </div>
+      <div class="card">
     <h2>All question Modules</h2>
+      <br>
     <div>
       {% for post in qms %}
         {% if post.author == user and post.parent == object.id and not post.isRoot  %}
+      <div class="card">
         <article class="media content-section">
           <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
@@ -45,11 +57,15 @@
             <h2><a  class="article-title" href="{% url 'moduleQuiz-detail' post.id %}?quiz=not">{{ post.statement }}</a></h2>
           </div>
         </article>
+      </div>
+      <br><br>
         {% endif %}
     {% endfor %}
     </div>
       </div>
+      </div>
         </article>
+</div>
 {% endblock content %}
 {% block content_java %}
 <script language="javascript" type="text/javascript" >

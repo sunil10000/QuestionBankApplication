@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
+<br>
         {% if object.author == user %}
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
@@ -12,6 +13,8 @@
             {% endif %}
           </div>
         {% endif %}
+<br><br>
+  <div class="card">
   <article class="media content-section">
     <img class="rounded-circle article-img" width="10%" height="10%" src="{{ object.author.profile.image.url }}">
     <div class="media-body">
@@ -29,4 +32,5 @@
 
       </div>
   </article>
+  </div>
 {% endblock content %}

@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect,HttpResponse
 from .models import Question,QuestionBank,QuestionModule, UploadedFile, QuizPaper
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.forms.models import model_to_dict
-from .forms import AddQuestion,FileUploadForm,ChoseDrowDown,RemoveForm, ExportForm, DownloadForm
+from .forms import AddQuestion,FileUploadForm,ChoseDrowDown,RemoveForm, ExportForm, DownloadForm,FileUploadForm2
 import configparser
-import os
+import os,tarfile
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
@@ -139,6 +139,13 @@ def select_quiz(request):
         return render(request, "blog/select_quiz.html", {'form': form})
 
 
+# def handle_zip_file(myfile):
+#     file_path = "media/QuestionFiles/"+myfile.name
+#     with tarfile.open(file_path, 'w') as tar:
+#
+
+
+
 def handle_uploaded_file(myfile):
     config = configparser.ConfigParser()
     file_path = "media/QuestionFiles/"+myfile.name
@@ -184,7 +191,7 @@ def add_question(request, *args, **kwargs):
         if len(mydict) == 0:
             print("again")
             print(isRoot)
-            if isRoot == "1":
+            if isRoot == 1:
                 return redirect("bank-detail", pk=parent)
             else:
                 return redirect("module-detail", pk=parent)
@@ -208,6 +215,28 @@ def upload_files(request):
     else:
         file_form = FileUploadForm()
         return render(request, "blog/upload_questions.html", {'form': file_form})
+
+
+def upload_qbfiles(request):
+    if request.method == 'POST':
+        file_form = FileUploadForm2(request.POST, request.FILES)
+        if file_form.is_valid():
+            file_form.instance.isRoot = 0
+            file_form.instance.parent = 3
+            file_form.save()
+            title = file_form.cleaned_data['title']
+            new_bank = QuestionBank.objects.create(title=title,author=request.user)
+            id = new_bank.id
+            mydict = handle_uploaded_file(request.FILES['file'])
+            request.session['mydict'] = mydict
+            request.session['parent'] = id
+            request.session['isRoot'] = 1
+            return redirect(add_question)
+        else:
+            return render(request, "blog/questionbank_form2.html", {'form': file_form})
+    else:
+        file_form = FileUploadForm2()
+        return render(request, "blog/questionbank_form2.html", {'form': file_form})
 
 
 class QuestionListView(ListView):

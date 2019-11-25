@@ -1,7 +1,9 @@
 {% extends "blog/base.html" %}
 {% block content %}
+<br>
     {% for post in quizPapers %}
         {% if post.author == user %}
+<div class="card">
         <article class="media content-section">
           <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
@@ -12,6 +14,8 @@
             <h2><a class="article-title" href="{% url 'quiz-detail' post.id %}">{{ post.title }}</a></h2>
           </div>
         </article>
+</div>
+<br><br>
         {% endif %}
     {% endfor %}
 {% endblock content %}

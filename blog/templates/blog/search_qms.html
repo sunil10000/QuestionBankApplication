@@ -14,13 +14,17 @@
             </form>
         </div>
     <div>
+        <br>
       {% for post in filter.qs %}
         {% if post.author == user %}
+        <div class="card">
         <article class="media content-section">
           <div class="media-body">
             <h2><a class="article-title" href="{% url 'module-detail' post.id %}">{{ post.statement }}</a></h2>
           </div>
         </article>
+        </div>
+        <br>
         {% endif %}
     {% endfor %}
     </div>

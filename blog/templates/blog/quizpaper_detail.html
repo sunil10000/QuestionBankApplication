@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
+<br>
         {% if object.author == user %}
         <div class="form-group">
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'quiz-update' object.id %}">Update</a>
@@ -8,6 +9,7 @@
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'export' %}?quiz={{object.id}}">Export</a>
                 </div>
         {% endif %}
+<br>
   <article class="media content-section">
     <img class="rounded-circle article-img" width="10%" height="10%" src="{{ object.author.profile.image.url }}">
     <div class="media-body">
@@ -17,10 +19,14 @@
         </div>
         <h2 class="article-title">{{ object.title }}</h2>
         <h2 id="marks" class="article-title"></h2>
+      <br>
+      <div class="card">
       <h2>All questions</h2>
+      <br>
     <div>
       {% for post in qs %}
         {% if post.author == user %}
+      <div class="card">
         <article class="media content-section">
           <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
@@ -31,13 +37,20 @@
             <h2><a class="article-title" href="{% url 'postQuiz-detail' post.id %}?quiz={{object.id}}">{{ post.statement }}</a></h2>
           </div>
         </article>
+      </div>
+      <br><br>
         {% endif %}
     {% endfor %}
     </div>
+      </div>
+      <br><br>
+      <div class="card">
     <h2>All question Modules</h2>
+      <br>
     <div>
       {% for post in qms %}
         {% if post.author == user %}
+      <div class="card">
         <article class="media content-section">
           <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
@@ -48,12 +61,16 @@
             <h2><a class="article-title" href="{% url 'moduleQuiz-detail' post.id %}?quiz={{object.id}}">{{ post.statement }}</a></h2>
           </div>
         </article>
+      </div>
+      <br><br>
         {% endif %}
     {% endfor %}
     </div>
       </div>
+      </div>
 
   </article>
+</div>
 {% endblock content %}
 {% block content_java %}
 <script >

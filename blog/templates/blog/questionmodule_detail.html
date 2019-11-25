@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 {% block content %}
 {% if object.author == user %}
+<br>
         <div class="form-group">
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-update' object.id %}">Update</a>
                     <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'module-delete' object.id %}">Delete</a>
@@ -14,6 +15,7 @@
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'module-detail' object.parent %}">Go to parent module</a>
                     {% endif %}
         </div>
+<br> <br>
         {% endif %}
   <article class="media content-section">
     <img class="rounded-circle article-img" width="10%" height="10%" src="{{ object.author.profile.image.url }}">
@@ -24,10 +26,14 @@
         </div>
       <h2 class="article-title">{{ object.statement }}</h2>
       <h2 class="article-title">{{ object.marks }}</h2>
+        <br>
+        <div class="card">
       <h2>All questions</h2>
+        <br><br>
     <div>
       {% for post in qs %}
         {% if post.author == user and post.parent == object.id and not post.isRoot  %}
+        <div class="card">
         <article class="media content-section">
           <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
@@ -38,13 +44,20 @@
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.statement }}</a></h2>
           </div>
         </article>
+        </div>
+        <br><br>
         {% endif %}
     {% endfor %}
     </div>
+        </div>
+        <br><br>
+        <div class="card">
     <h2>All question Modules</h2>
+        <br>
     <div>
       {% for post in qms %}
         {% if post.author == user and post.parent == object.id and not post.isRoot  %}
+        <div class="card">
         <article class="media content-section">
           <img class="rounded-circle article-img" width="10%" height="10%" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
@@ -55,10 +68,14 @@
             <h2><a class="article-title" href="{% url 'module-detail' post.id %}">{{ post.statement }}</a></h2>
           </div>
         </article>
+        </div>
+        <br><br>
         {% endif %}
     {% endfor %}
     </div>
+        </div>
       </div>
 
   </article>
+</div>
 {% endblock content %}

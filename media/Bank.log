@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  24 NOV 2019 17:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  25 NOV 2019 00:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -53,10 +53,31 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen110
 \Gm@dimlist=\toks15
 )
-(/usr/share/texlive/texmf-dist/tex/latex/seqsplit/seqsplit.sty
-Package: seqsplit 2006/08/07 v0.1 Splitting long sequences (DNA, RNA, proteins,
- etc.) 
-) (media/Bank.aux)
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2018/02/14 3.18 The Babel package
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
+File: switch.def 2018/02/14 3.18 Babel switching mechanism
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/british.ldf
+Language: british 2017/06/06 v3.3r English support from the babel system
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2018/02/14 3.18 Babel common definitions
+\babel@savecnt=\count90
+\U@D=\dimen111
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@dirlevel=\count91
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+)))
+(media/Bank.aux)
 \openout1 = `Bank.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
@@ -106,27 +127,46 @@ LaTeX Font Info:    ... okay on input line 3.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 \\
+      \vspace*{2cm}
+? 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 8.
+(Font)              <20.74> on input line 10.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 8.
+(Font)              <14.4> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 10.
+! Extra alignment tab has been changed to \cr.
+<recently read> \endtemplate 
+                             
+l.11 ...\hline Q9 & 9 \\ \hline Total Marks & 61 &
+                                                   \\
+? 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (media/Bank.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (media/Bank.aux) ) 
 Here is how much of TeX's memory you used:
- 739 strings out of 492982
- 10216 string characters out of 6134896
- 75593 words of memory out of 5000000
- 4366 multiletter control sequences out of 15000+600000
- 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 1250 strings out of 492982
+ 17026 string characters out of 6134896
+ 86664 words of memory out of 5000000
+ 4858 multiletter control sequences out of 15000+600000
+ 6380 words of font info for 23 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 23i,6n,19p,204b,233s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on media/Bank.pdf (1 page, 21864 bytes).
+ 25i,6n,23p,272b,180s stack positions out of 5000i,500n,10000p,200000b,80000s
+</us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on media/Bank.pdf (2 pages, 31885 bytes).
 PDF statistics:
- 12 PDF objects out of 1000 (max. 8388607)
- 7 compressed objects within 1 object stream
+ 19 PDF objects out of 1000 (max. 8388607)
+ 12 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
