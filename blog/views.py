@@ -192,7 +192,7 @@ def add_question(request, *args, **kwargs):
         if len(mydict) == 0:
             print("again")
             print(isRoot)
-            if str(isRoot) == 1:
+            if str(isRoot) == "1":
                 return redirect("bank-detail", pk=parent)
             else:
                 return redirect("module-detail", pk=parent)
@@ -205,21 +205,23 @@ def upload_files(request):
     if request.method == 'POST':
         file_name = ""
         file_form = FileUploadForm(request.POST, request.FILES)
-        try:
-            if file_form.is_valid():
-                file_form.save()
-                file_name = request.FILES['file'].name
-                mydict = handle_uploaded_file(request.FILES['file'])
-                request.session['mydict'] = mydict
-                request.session['parent'] = file_form['parent'].value()
-                request.session['isRoot'] = file_form['isRoot'].value()
-                return redirect(add_question)
-            else:
-                return render(request, "blog/upload_questions.html", {'form': file_form, 'title': "Upload files"})
-        except Exception:
-            os.remove("media/QuestionFiles/"+file_name)
+
+        if file_form.is_valid():
+            file_name = request.FILES['file'].name
+            file_path = "media/QuestionFiles/" + file_name
+            try:
+                os.remove(file_path)
+            except Exception:
+                pass
             UploadedFile.objects.all().delete()
-            file_form = FileUploadForm()
+            file_form.save()
+            mydict = handle_uploaded_file(request.FILES['file'])
+            request.session['mydict'] = mydict
+            request.session['parent'] = file_form['parent'].value()
+            request.session['isRoot'] = file_form['isRoot'].value()
+            return redirect(add_question)
+
+        else:
             return render(request, "blog/upload_questions.html", {'form': file_form, 'title': "Upload files"})
 
     else:
