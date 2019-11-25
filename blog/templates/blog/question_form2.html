@@ -17,9 +17,9 @@
 {% block content_java %}
 <script >
     document.getElementById('id_parent').value = {{ parent }};
-<!--    document.getElementById('id_parent').type = "hidden"-->
+    document.getElementById('id_parent').type = "hidden"
     document.getElementById('id_isRoot').value = {{ isRoot }};
-<!--    document.getElementById('id_isRoot').type = "hidden";-->
+    document.getElementById('id_isRoot').type = "hidden";
     var tags = document.getElementsByTagName('label'), l = tags.length, i;
 for( i=0; i<l; i++) {
 if(tags[i].for=="id_parent" || tags[i].for=="id_isRoot"){

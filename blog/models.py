@@ -49,12 +49,16 @@ class QuestionModule(models.Model):
 
 
 class QuestionBank(models.Model):
-    title = models.CharField(max_length=1000)
+    title = models.CharField(max_length=1000) #, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
         return reverse('bank-detail', kwargs={'pk': self.pk})
+
+    # def save(self, *args, **kwargs):
+    #     self.validate_unique()
+    #     super(QuestionBank, self).save(*args, **kwargs)
 
 
 class UploadedFile(models.Model):

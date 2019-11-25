@@ -24,9 +24,9 @@
          data[tmp[0]] = tmp[1];
     }
     document.getElementById('id_qid').value = data.id;
-<!--    document.getElementById('id_id').type = "hidden"-->
+    document.getElementById('id_qid').type = "hidden"
     document.getElementById('id_isQ').value = data.isQ;
-<!--    document.getElementById('id_isQ').type = "hidden";-->
+    document.getElementById('id_isQ').type = "hidden";
     tags = document.getElementsByTagName('label'), l = tags.length, i;
 for( i=0; i<l; i++) {
 if(tags[i].for=="id_parent" || tags[i].for=="id_isRoot"){

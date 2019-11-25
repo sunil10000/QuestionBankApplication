@@ -21,9 +21,9 @@
     console.log("hi")
     console.log(params)
     document.getElementById('id_parent').value = data.parent;
-<!--    document.QuizDetailViewgetElementById('id_parent').type = "hidden"-->
+    document.getElementById('id_parent').type = "hidden"
     document.getElementById('id_isRoot').value = data.isRoot;
-<!--    document.getElementById('id_isRoot').type = "hidden";-->
+    document.getElementById('id_isRoot').type = "hidden";
     tags = document.getElementsByTagName('label'), l = tags.length, i;
 for( i=0; i<l; i++) {
 if(tags[i].for=="id_parent" || tags[i].for=="id_isRoot"){

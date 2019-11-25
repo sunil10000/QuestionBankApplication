@@ -27,9 +27,9 @@ class ChoseDrowDown(forms.Form):
 
 
 class RemoveForm(forms.Form):
-    qid = forms.CharField()
-    quiz_id = forms.CharField()
-    isQ = forms.CharField()
+    qid = forms.CharField(widget = forms.HiddenInput())
+    quiz_id = forms.CharField(widget = forms.HiddenInput())
+    isQ = forms.CharField(widget = forms.HiddenInput())
 
 
 class ExportForm(forms.Form):

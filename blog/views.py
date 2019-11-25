@@ -2,9 +2,11 @@ from django.shortcuts import render,redirect,HttpResponse
 from .models import Question,QuestionBank,QuestionModule, UploadedFile, QuizPaper
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.forms.models import model_to_dict
+from django.forms.utils import ErrorList
 from .forms import AddQuestion,FileUploadForm,ChoseDrowDown,RemoveForm, ExportForm, DownloadForm,FileUploadForm2
 import configparser
 import os,tarfile
+from django.core.exceptions import ValidationError
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
@@ -86,9 +88,9 @@ def remove_from_quiz(request):
                 quiz.save()
             return redirect("quiz-detail", pk=quiz_id)
         else:
-            return render(request, "blog/remove.html", {'form': form})
+            return render(request, "blog/remove.html", {'form': form, 'title': 'Remove from quiz'})
     else:
-        return render(request, "blog/remove.html", {'form': form})
+        return render(request, "blog/remove.html", {'form': form, 'title': 'Remove from quiz'})
 
 
 def select_quiz(request):
@@ -129,21 +131,20 @@ def select_quiz(request):
                 quiz.save()
                 return redirect('quiz-detail', quiz_id)
         else:
-            return render(request, "blog/select_quiz.html", {'form': form})
+            return render(request, "blog/select_quiz.html", {'form': form, 'title': "Select from quiz"})
     else:
         tup_list = QuizPaper.objects.values_list('title', 'id')
         tup_list = [('{0}:{1}'.format(p[0], p[1]),'{0}:{1}'.format(p[0], p[1])) for p in tup_list]
         form.fields['option'].choices = tup_list
         form.fields['option'].initial = tup_list[0]
         print(form.fields['option'].choices)
-        return render(request, "blog/select_quiz.html", {'form': form})
+        return render(request, "blog/select_quiz.html", {'form': form, 'title': "Select from quiz"})
 
 
 # def handle_zip_file(myfile):
 #     file_path = "media/QuestionFiles/"+myfile.name
 #     with tarfile.open(file_path, 'w') as tar:
 #
-
 
 
 def handle_uploaded_file(myfile):
@@ -186,7 +187,7 @@ def add_question(request, *args, **kwargs):
             request.session['mydict'] = mydict[1:]
             return redirect(add_question)
         else:
-            return render(request, "blog/question_form2.html", {'form': question_form, 'mydict': mydict, 'isRoot': isRoot, 'parent':parent})
+            return render(request, "blog/question_form2.html", {'form': question_form, 'mydict': mydict, 'isRoot': isRoot, 'parent':parent, 'title': "Add question"})
     else:
         if len(mydict) == 0:
             print("again")
@@ -197,7 +198,7 @@ def add_question(request, *args, **kwargs):
                 return redirect("module-detail", pk=parent)
         else:
             question_form = AddQuestion()
-            return render(request, "blog/question_form2.html", {'form': question_form, 'mydict': mydict, 'isRoot': isRoot, 'parent':parent})
+            return render(request, "blog/question_form2.html", {'form': question_form, 'mydict': mydict, 'isRoot': isRoot, 'parent':parent, 'title': "Add question"})
 
 
 def upload_files(request):
@@ -211,10 +212,10 @@ def upload_files(request):
             request.session['isRoot'] = file_form['isRoot'].value()
             return redirect(add_question)
         else:
-            return render(request, "blog/upload_questions.html", {'form': file_form})
+            return render(request, "blog/upload_questions.html", {'form': file_form, 'title': "Upload files"})
     else:
         file_form = FileUploadForm()
-        return render(request, "blog/upload_questions.html", {'form': file_form})
+        return render(request, "blog/upload_questions.html", {'form': file_form, 'title': "Upload files"})
 
 
 def upload_qbfiles(request):
@@ -233,10 +234,10 @@ def upload_qbfiles(request):
             request.session['isRoot'] = 1
             return redirect(add_question)
         else:
-            return render(request, "blog/questionbank_form2.html", {'form': file_form})
+            return render(request, "blog/questionbank_form2.html", {'form': file_form, 'title': "Upload Question Bank via files"})
     else:
         file_form = FileUploadForm2()
-        return render(request, "blog/questionbank_form2.html", {'form': file_form})
+        return render(request, "blog/questionbank_form2.html", {'form': file_form, 'title': "Upload Question Bank via files"})
 
 
 class QuestionListView(ListView):
@@ -301,7 +302,14 @@ class QuestionBankCreateView(LoginRequiredMixin, CreateView):
     fields = ['title']
 
     def form_valid(self, form):
+        self.object = form.save(commit=False)
         form.instance.author = self.request.user
+        # try:
+        #     self.object.full_clean()
+        # except ValidationError:
+        #     form._errors["title"] = ErrorList([u"You already have an Question Bank with that name ."])
+        #     return super(QuestionBankCreateView, self).form_invalid(form)
+        # else:
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -655,9 +663,9 @@ def export(request):
             generate_quiz(quiz_id, title, top, bottom, left, right)
             return redirect('quiz-download')
         else:
-            return render(request, "blog/export.html", {'form': form})
+            return render(request, "blog/export.html", {'form': form, 'title': "Export Question Paper"})
     else:
-        return render(request, "blog/export.html", {'form': form})
+        return render(request, "blog/export.html", {'form': form, 'title': "Export Question Paper"})
 
 
 def download(request):
@@ -669,9 +677,9 @@ def download(request):
             downloadbank(qbid)
             return redirect('qb-download')
         else:
-            return render(request, "blog/download.html", {'form': form})
+            return render(request, "blog/download.html", {'form': form, 'title': "Download Question Bank"})
     else:
-        return render(request, "blog/download.html", {'form': form})
+        return render(request, "blog/download.html", {'form': form, 'title': "Download Question Bank"})
 
 
 def pdf_view(request):
