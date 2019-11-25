@@ -75,7 +75,7 @@ def downloadbank(bankid):
         f.write(r"\huge{" + header + "}" + r"\\" + "\n")
         #f.write("\\")
         f.write("\\vspace*{2cm}\n")
-        f.write(r"\date[\today" + "\n")
+        f.write(r"\date[\today" + r"\\" + "\n")
         #f.write("\\")
         f.write("\\vspace*{2 cm}\n")
 

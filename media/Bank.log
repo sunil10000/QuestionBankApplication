@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  25 NOV 2019 03:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  25 NOV 2019 05:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -541,37 +541,24 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-! Extra alignment tab has been changed to \cr.
-<recently read> \endtemplate 
-                             
-l.34 ...hline Q11 & 9 \\ \hline Total Marks & 65 &
-                                                   \\
-? 
-! Interruption.
-<template> ...kip -.5\arrayrulewidth \endtemplate 
-                                                  
-l.34 ...hline Q11 & 9 \\ \hline Total Marks & 65 &
-                                                   \\
-? g
-Type <return> to proceed, S to scroll future error messages,
-R to run without stopping, Q to run quietly,
-I to insert something, E to edit your file,
-H for help, X to quit.
-? 
-! Emergency stop.
-<template> ...kip -.5\arrayrulewidth \endtemplate 
-                                                  
-l.34 ...hline Q11 & 9 \\ \hline Total Marks & 65 &
-                                                   \\
-End of file on the terminal!
+[2
 
- 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [3] (media/Bank.aux) ) 
 Here is how much of TeX's memory you used:
- 10855 strings out of 492982
- 202524 string characters out of 6134896
- 261378 words of memory out of 5000000
- 14209 multiletter control sequences out of 15000+600000
- 7052 words of font info for 26 fonts, out of 8000000 for 9000
+ 10891 strings out of 492982
+ 203408 string characters out of 6134896
+ 268359 words of memory out of 5000000
+ 14240 multiletter control sequences out of 15000+600000
+ 7405 words of font info for 27 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,6n,45p,412b,182s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 48i,11n,45p,412b,226s stack positions out of 5000i,500n,10000p,200000b,80000s
+</us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on media/Bank.pdf (2 pages, 32084 bytes).
+PDF statistics:
+ 22 PDF objects out of 1000 (max. 8388607)
+ 15 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+

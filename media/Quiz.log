@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  25 NOV 2019 03:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  25 NOV 2019 05:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -449,15 +449,15 @@ LaTeX Font Info:    ... okay on input line 26.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(14.45377pt, 568.60034pt, 14.45377pt)
-* v-part:(T,H,B)=(14.45377pt, 816.13931pt, 14.45377pt)
+* h-part:(L,W,R)=(72.26999pt, 452.9679pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 700.50687pt, 72.26999pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=568.60034pt
-* \textheight=816.13931pt
-* \oddsidemargin=-57.81622pt
-* \evensidemargin=-57.81622pt
-* \topmargin=-94.81622pt
+* \textwidth=452.9679pt
+* \textheight=700.50687pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -541,13 +541,17 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+Overfull \hbox (37.1254pt too wide) in paragraph at lines 35--38
+ [][] 
+ []
+
 [2{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ] [3] (media/Quiz.aux) ) 
 Here is how much of TeX's memory you used:
  10889 strings out of 492982
  203416 string characters out of 6134896
- 266378 words of memory out of 5000000
+ 267318 words of memory out of 5000000
  14240 multiletter control sequences out of 15000+600000
  7054 words of font info for 26 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -555,7 +559,7 @@ Here is how much of TeX's memory you used:
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmr17.pfb>
-Output written on media/Quiz.pdf (2 pages, 31119 bytes).
+Output written on media/Quiz.pdf (2 pages, 32277 bytes).
 PDF statistics:
  22 PDF objects out of 1000 (max. 8388607)
  15 compressed objects within 1 object stream

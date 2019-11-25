@@ -596,9 +596,11 @@ class QuestionDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 def delete_bank(id):
     qs = Question.objects.filter(parent=id, isRoot=1)
     for q in qs:
+        remove_from_quizzes(q.id)
         q.delete()
     qms = QuestionModule.objects.filter(parent=id, isRoot=1)
     for qm in qms:
+        remove_from_quizzes2(qm.id)
         delete_module(qm.id)
         qm.delete()
 
