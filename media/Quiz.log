@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  25 NOV 2019 05:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.15)  25 NOV 2019 07:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -545,24 +545,72 @@ Overfull \hbox (37.1254pt too wide) in paragraph at lines 35--38
  [][] 
  []
 
+
+! LaTeX Error: Command \end{enumerate} invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.41 \\Solution:\\ \vspace*{150pt}\end{enumerate}
+                                                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.41 \\Solution:\\ \vspace*{150pt}\end{enumerate}
+                                                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.41 \\Solution:\\ \vspace*{150pt}\end{enumerate}
+                                                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.41 \\Solution:\\ \vspace*{150pt}\end{enumerate}
+                                                 
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
 [2{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ] [3] (media/Quiz.aux) ) 
 Here is how much of TeX's memory you used:
- 10889 strings out of 492982
- 203416 string characters out of 6134896
- 266318 words of memory out of 5000000
- 14240 multiletter control sequences out of 15000+600000
- 7054 words of font info for 26 fonts, out of 8000000 for 9000
+ 10892 strings out of 492982
+ 203449 string characters out of 6134896
+ 265318 words of memory out of 5000000
+ 14242 multiletter control sequences out of 15000+600000
+ 7508 words of font info for 28 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,12n,45p,412b,204s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr17.pfb>
-Output written on media/Quiz.pdf (2 pages, 31279 bytes).
+nts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb>
+Output written on media/Quiz.pdf (2 pages, 45314 bytes).
 PDF statistics:
- 22 PDF objects out of 1000 (max. 8388607)
- 15 compressed objects within 1 object stream
+ 30 PDF objects out of 1000 (max. 8388607)
+ 21 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

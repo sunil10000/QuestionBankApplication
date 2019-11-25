@@ -203,16 +203,25 @@ def add_question(request, *args, **kwargs):
 
 def upload_files(request):
     if request.method == 'POST':
+        file_name = ""
         file_form = FileUploadForm(request.POST, request.FILES)
-        if file_form.is_valid():
-            file_form.save()
-            mydict = handle_uploaded_file(request.FILES['file'])
-            request.session['mydict'] = mydict
-            request.session['parent'] = file_form['parent'].value()
-            request.session['isRoot'] = file_form['isRoot'].value()
-            return redirect(add_question)
-        else:
+        try:
+            if file_form.is_valid():
+                file_form.save()
+                file_name = request.FILES['file'].name
+                mydict = handle_uploaded_file(request.FILES['file'])
+                request.session['mydict'] = mydict
+                request.session['parent'] = file_form['parent'].value()
+                request.session['isRoot'] = file_form['isRoot'].value()
+                return redirect(add_question)
+            else:
+                return render(request, "blog/upload_questions.html", {'form': file_form, 'title': "Upload files"})
+        except Exception:
+            os.remove("media/QuestionFiles/"+file_name)
+            UploadedFile.objects.all().delete()
+            file_form = FileUploadForm()
             return render(request, "blog/upload_questions.html", {'form': file_form, 'title': "Upload files"})
+
     else:
         file_form = FileUploadForm()
         return render(request, "blog/upload_questions.html", {'form': file_form, 'title': "Upload files"})
@@ -520,7 +529,7 @@ class QuestionModuleUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView
 
 class QuestionUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Question
-    fields = ['statement', 'answer', 'marks', 'difficulty', 'chapter_tag', 'section_tag', 'parent', 'isRoot']
+    fields = ['statement', 'answer', 'marks', 'difficulty', 'chapter_tag', 'section_tag']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

@@ -116,4 +116,4 @@ def downloadbank(bankid):
             f.write("\\end{enumerate}\n")
         f.write("\\end{document}\n")
 
-    os.system("pdflatex -output-directory media media/Bank.tex")
+    os.system("pdflatex -interaction=nonstopmode -output-directory media media/Bank.tex")
