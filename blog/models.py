@@ -32,9 +32,6 @@ class Question(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
-    # class Meta:
-    #     unique_together = ('statement', 'parent', 'isRoot')
-
 
 class QuestionModule(models.Model):
     statement = models.TextField()
@@ -50,21 +47,15 @@ class QuestionModule(models.Model):
     def get_absolute_url(self):
         return reverse('module-detail', kwargs={'pk': self.pk})
 
-    # class Meta:
-    #     unique_together = ('statement', 'parent', 'isRoot')
-
 
 class QuestionBank(models.Model):
-    title = models.CharField(max_length=1000) #, unique=True)
+    title = models.CharField(max_length=1000, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
         return reverse('bank-detail', kwargs={'pk': self.pk})
 
-    # def save(self, *args, **kwargs):
-    #     self.validate_unique()
-    #     super(QuestionBank, self).save(*args, **kwargs)
 
 
 class UploadedFile(models.Model):
@@ -76,7 +67,7 @@ class UploadedFile(models.Model):
 
 
 class QuizPaper(models.Model):
-    title = models.CharField(max_length=1000)  #, unique=True)
+    title = models.CharField(max_length=1000, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     qid_list = models.CharField(validators=[validate_comma_separated_integer_list], max_length=1000)
     qmid_list = models.CharField(validators=[validate_comma_separated_integer_list], max_length=1000)
@@ -84,10 +75,6 @@ class QuizPaper(models.Model):
 
     def get_absolute_url(self):
         return reverse('quiz-detail', kwargs={'pk': self.pk})
-
-    # def save(self, *args, **kwargs):
-    #     self.validate_unique()
-    #     super(QuizPaper, self).save(*args, **kwargs)
 
 
 class JustToChose(models.Model):

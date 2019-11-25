@@ -2,11 +2,9 @@ from django.shortcuts import render,redirect,HttpResponse
 from .models import Question,QuestionBank,QuestionModule, UploadedFile, QuizPaper
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.forms.models import model_to_dict
-from django.forms.utils import ErrorList
 from .forms import AddQuestion,FileUploadForm,ChoseDrowDown,RemoveForm, ExportForm, DownloadForm,FileUploadForm2
 import configparser
 import os,tarfile
-from django.core.exceptions import ValidationError
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
@@ -16,6 +14,8 @@ from .filters import QuestionFilter, QuestionModuleFilter
 from .Feature1 import generate_quiz
 from django.http import FileResponse
 from .DownloadQuestionBank import downloadbank
+from django.contrib import messages
+from django.db import IntegrityError
 
 
 # def home(request):
@@ -192,7 +192,7 @@ def add_question(request, *args, **kwargs):
         if len(mydict) == 0:
             print("again")
             print(isRoot)
-            if isRoot == 1:
+            if str(isRoot) == 1:
                 return redirect("bank-detail", pk=parent)
             else:
                 return redirect("module-detail", pk=parent)
@@ -224,15 +224,20 @@ def upload_qbfiles(request):
         if file_form.is_valid():
             file_form.instance.isRoot = 0
             file_form.instance.parent = 3
-            file_form.save()
-            title = file_form.cleaned_data['title']
-            new_bank = QuestionBank.objects.create(title=title,author=request.user)
-            id = new_bank.id
-            mydict = handle_uploaded_file(request.FILES['file'])
-            request.session['mydict'] = mydict
-            request.session['parent'] = id
-            request.session['isRoot'] = 1
-            return redirect(add_question)
+            try:
+                file_form.save()
+                title = file_form.cleaned_data['title']
+                new_bank = QuestionBank.objects.create(title=title,author=request.user)
+                id = new_bank.id
+                mydict = handle_uploaded_file(request.FILES['file'])
+                request.session['mydict'] = mydict
+                request.session['parent'] = id
+                request.session['isRoot'] = 1
+                return redirect(add_question)
+            except IntegrityError:
+                messages.add_message(request, messages.ERROR,"Question bank with this Title already exists.")
+                return render(request, "blog/questionbank_form2.html",
+                              {'form': file_form, 'title': "Upload Question Bank via files"})
         else:
             return render(request, "blog/questionbank_form2.html", {'form': file_form, 'title': "Upload Question Bank via files"})
     else:
@@ -271,17 +276,6 @@ def about(request):
     return render(request, 'blog/about.html',context)
 
 
-# def upload(request):
-#     if request.method == "POST":
-#         uploaded_file = request.FILES['questionPaper']
-#         print(uploaded_file.name)
-#         print(uploaded_file.size)
-#         fs = FileSystemStorage()
-#         fs.save(uploaded_file.name, uploaded_file)
-#         return redirect('blog-home')
-#     else:
-#         return render(request, 'blog/question_form.html')
-
 
 class QuizCreateView(LoginRequiredMixin,CreateView):
     model = QuizPaper
@@ -296,26 +290,37 @@ class QuizCreateView(LoginRequiredMixin,CreateView):
         context['title'] = "Create new quiz"
         return context
 
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().post(request, *args, **kwargs)
+        except IntegrityError:
+            messages.add_message(request, messages.ERROR,
+                                 'You already have registered a Client with this name. ' + \
+                                 'All of your Client names must be unique.')
+            return render(request, template_name=self.template_name, context=self.get_context_data())
+
 
 class QuestionBankCreateView(LoginRequiredMixin, CreateView):
     model = QuestionBank
     fields = ['title']
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
         form.instance.author = self.request.user
-        # try:
-        #     self.object.full_clean()
-        # except ValidationError:
-        #     form._errors["title"] = ErrorList([u"You already have an Question Bank with that name ."])
-        #     return super(QuestionBankCreateView, self).form_invalid(form)
-        # else:
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = "Create new question bank"
         return context
+
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().post(request, *args, **kwargs)
+        except IntegrityError:
+            messages.add_message(request, messages.ERROR,
+                                 'You already have registered a Client with this name. ' + \
+                                 'All of your Client names must be unique.')
+            return render(request, template_name=self.template_name, context=self.get_context_data())
 
 
 class QuestionModuleCreateView(LoginRequiredMixin, CreateView):
@@ -458,6 +463,15 @@ class QuizUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         context['title'] = "Update Quiz Paper"
         return context
 
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().post(request, *args, **kwargs)
+        except IntegrityError:
+            messages.add_message(request, messages.ERROR,
+                                 'You already have registered a Client with this name. ' + \
+                                 'All of your Client names must be unique.')
+            return render(request, template_name=self.template_name, context=self.get_context_data())
+
 
 class QuestionBankUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = QuestionBank
@@ -475,6 +489,15 @@ class QuestionBankUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         context = super().get_context_data(**kwargs)
         context['title'] = "Update Question Bank"
         return context
+
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().post(request, *args, **kwargs)
+        except IntegrityError:
+            messages.add_message(request, messages.ERROR,
+                                 'You already have registered a Client with this name. ' + \
+                                 'All of your Client names must be unique.')
+            return render(request, template_name=self.template_name, context=self.get_context_data())
 
 
 class QuestionModuleUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
