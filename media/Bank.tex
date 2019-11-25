@@ -1,14 +1,35 @@
 \documentclass[10pt]{article}
 \usepackage[a4paper,bottom = 0.6in,left = 0.75in,right = 0.75in,top = 0.6in]{geometry}
-\usepackage[british]{babel}\emergencystretch 3em\begin {document}\sloppy
+\usepackage[british]{babel}
+\usepackage {seqsplit}
+\usepackage {amsmath}
+\usepackage {fancyhdr}
+\pagestyle {fancy}
+\renewcommand {\headrulewidth}{0.4 pt}
+\usepackage {pgf}
+\usepackage {pgfpages}
+\usepackage {graphicx}
+\pgfpagesdeclarelayout {boxed} { \edef\pgfpageoptionborder {3 pt}} { 
+\pgfpagesphysicalpageoptions 
+ { 
+    logical pages = 1, % 
+} 
+\pgfpageslogicalpageoptions{1}{ 
+    border code =\pgfsetlinewidth {2 pt}\pgfstroke, % 
+    border shrink =\pgfpageoptionborder, 
+    resized width = .90\pgfphysicalwidth, 
+    resized height = .90\pgfphysicalheight, center =\pgfpoint 
+{.5\pgfphysicalwidth}{.5\pgfphysicalheight} }} 
+\pgfpagesuselayout {boxed} 
+\begin {document}\sloppy
 \vspace*{2cm}
 \begin{center}
 \huge{study}\\
-\\\vspace*{2cm}
+\vspace*{2cm}
 \date[\today
-\\\vspace*{2 cm}
+\vspace*{2 cm}
 \begin{tabular}{|c|c|}
-\hline Q1 & 10 \\ \hline Q2 & 30 \\ \hline Q3 & 2 \\ \hline Q4 & 2 \\ \hline Q5 & 2 \\ \hline Q6 & 2 \\ \hline Q7 & 2 \\ \hline Q8 & 2 \\ \hline Q9 & 9 \\ \hline Total Marks & 61 & \\
+\hline Q1 & 10 \\ \hline Q2 & 30 \\ \hline Q3 & 2 \\ \hline Q4 & 2 \\ \hline Q5 & 2 \\ \hline Q6 & 2 \\ \hline Q7 & 2 \\ \hline Q8 & 2 \\ \hline Q9 & 2 \\ \hline Q10 & 2 \\ \hline Q11 & 9 \\ \hline Total Marks & 65\\
 \hline \end{tabular}\end{center}
 \pagebreak\begin{enumerate}\item what to study\hfill
 [10 Marks]
@@ -21,6 +42,10 @@
 \\Solution: efgh\\\vspace*{10pt}\item linerDifferential1\hfill
 [2 Marks]
 \\Solution: efgh\\\vspace*{10pt}\item linerDifferential2\hfill
+[2 Marks]
+\\Solution: efgh\\\vspace*{10pt}\item linerDifferential3\hfill
+[2 Marks]
+\\Solution: efgh\\\vspace*{10pt}\item linerDifferential4\hfill
 [2 Marks]
 \\Solution: efgh\\\vspace*{10pt}\item linerDifferential3\hfill
 [2 Marks]

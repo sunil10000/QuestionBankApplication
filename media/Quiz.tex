@@ -1,19 +1,49 @@
 \documentclass[10pt]{article}
-\usepackage[a4paper,bottom = 0.23 in,left = 0.50 in,right = 0.78 in,top = 1.2 in]{geometry}
-\usepackage[british]{babel}\emergencystretch 3em\begin {document}\sloppy
+\usepackage[a4paper,bottom = 0.2 in,left = 0.2 in,right = 0.2 in,top = 0.2 in]{geometry}
+\usepackage[british]{babel}
+\usepackage {seqsplit}
+\usepackage {amsmath}
+\usepackage {fancyhdr}
+\pagestyle {fancy}
+\lhead {Name \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\rhead {Roll No. \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\renewcommand {\headrulewidth}{0.4 pt}
+\usepackage {pgf}
+\usepackage {pgfpages}
+\usepackage {graphicx}
+\pgfpagesdeclarelayout {boxed} { \edef\pgfpageoptionborder {3 pt}} { 
+\pgfpagesphysicalpageoptions 
+ { 
+    logical pages = 1, % 
+} 
+\pgfpageslogicalpageoptions{1}{ 
+    border code =\pgfsetlinewidth {2 pt}\pgfstroke, % 
+    border shrink =\pgfpageoptionborder, 
+    resized width = .90\pgfphysicalwidth, 
+    resized height = .90\pgfphysicalheight, center =\pgfpoint 
+{.5\pgfphysicalwidth}{.5\pgfphysicalheight} }} 
+\pgfpagesuselayout {boxed} 
+\begin {document}\sloppy
 \vspace*{2cm}
 \begin{center}
-\huge{midsem}\\
-\vspace*{2 cm}
+\Huge{Midsem}\\
+\vspace*{1 cm}
+\Huge {Duration : 3hrs}\\
+\vspace*{1 cm}
 \date[\today
 \\\vspace*{2 cm}
 \begin{tabular}{|c|c|c|}
 \hline Question Number & Max Marks & Obtained Marks \\
-\hline Q1 & 2 & \\ \hline Q2 & 0 & \\ \hline Total Marks & 2 & \\
+\hline Q1 & 2 & \\ \hline Q2 & 9 & \\ \hline Total Marks & 11 & \\
 \hline \end{tabular}\end{center}
 \pagebreak\begin{enumerate}\item linerDifferential4\hfill
 [2 Marks]
 \\Solution:\\ \vspace*{30pt}\item Physics\hfill
+[9 Marks]
+\begin{enumerate}\item khj\hfill
+[9 Marks]
+\\Solution:\\ \vspace*{135pt}\item ijk\hfill
 [0 Marks]
+\end{enumerate}
 \end{enumerate}
 \end{document}
